@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Connect Your Bank - Plaid Link</title>
+    <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+  </head>
+  <body>
+    <h2>Connect your bank to Google Sheets</h2>
+    <button id="link-button">Launch Plaid Link</button>
+
+    <script>
+      const handler = Plaid.create({
+        token: 'link-production-66114880-c316-4207-9489-39b864dadc61',
+        onSuccess: function(public_token, metadata) {
+          alert("✅ Your public token is: " + public_token);
+        },
+        onExit: function(err, metadata) {
+          alert("Exited Plaid Link or encountered an error.");
+          console.log(err, metadata);
+        }
+      });
+
+      document.getElementById("link-button").onclick = function () {
+        handler.open();
+      };
+    </script>
+  </body>
+</html>
